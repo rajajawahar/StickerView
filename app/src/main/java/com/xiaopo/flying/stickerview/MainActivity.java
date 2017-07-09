@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     BitmapStickerIcon.LEFT_BOTTOM);
     heartIcon.setIconEvent(new HelloIconEvent());
 
-    stickerView.setIcons(Arrays.asList(deleteIcon, zoomIcon, flipIcon, heartIcon));
+    stickerView.setIcons(Arrays.asList(deleteIcon, zoomIcon));
 
     //default icon layout
     //stickerView.configDefaultIcons();
@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
       public void onStickerClicked(@NonNull Sticker sticker) {
         //stickerView.removeAllSticker();
         if (sticker instanceof TextSticker) {
-          ((TextSticker) sticker).setTextColor(Color.RED);
           stickerView.replace(sticker);
           stickerView.invalidate();
         }
