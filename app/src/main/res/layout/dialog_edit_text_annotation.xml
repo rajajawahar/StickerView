@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    >
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="10dp"
+      android:layout_marginTop="10dp"
+      android:gravity="center"
+      android:padding="5dp"
+      android:text="Edit your text"
+      android:textColor="@android:color/black"
+      android:textSize="18sp"
+      />
+
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@android:color/black"
+      android:padding="5dp"
+      />
+
+  <android.support.design.widget.TextInputLayout
+      android:id="@+id/usernameWrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      >
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your text"
+        android:inputType="textEmailAddress"
+        android:textColor="@android:color/black"
+        />
+
+  </android.support.design.widget.TextInputLayout>
+
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/rv_color_list"
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:layout_margin="5dp"
+      android:overScrollMode="never"
+      android:scrollbars="none"
+      />
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      >
+
+    <Button
+        android:id="@+id/btn_photo_annotation_cancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/black"
+        android:text="Cancel"
+        />
+    <View
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        />
+
+    <Button
+        android:id="@+id/btn_photo_annotation_submit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/black"
+        android:text="Submit"
+        android:textColor="@android:color/white"
+        />
+  </LinearLayout>
+
+
+</LinearLayout>

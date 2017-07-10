@@ -1,6 +1,7 @@
 package com.xiaopo.flying.stickerview;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -20,10 +21,13 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rm.freedrawview.FreeDrawView;
@@ -110,7 +114,8 @@ public class MainActivity extends AppCompatActivity
 
     sticker.setDrawable(ContextCompat.getDrawable(getApplicationContext(),
         R.drawable.sticker_transparent_background));
-    sticker.setText("Hello, world!");
+    sticker.setText(
+        "Hello, world!kjha[hjapnh]ahashjahjajhsjh]pajhpajhsjaphjshjpajhpjhpasjhjhajshpjsahpjashjasjhasjhahj");
     sticker.setTextColor(Color.BLACK);
     sticker.setTextAlign(Layout.Alignment.ALIGN_CENTER);
     sticker.resizeText();
@@ -123,8 +128,10 @@ public class MainActivity extends AppCompatActivity
       @Override public void onStickerClicked(@NonNull Sticker sticker) {
         //stickerView.removeAllSticker();
         if (sticker instanceof TextSticker) {
-          stickerView.replace(sticker);
-          stickerView.invalidate();
+          TextSticker textSticker = (TextSticker) sticker;
+          //stickerView.replace(sticker);
+          //stickerView.invalidate();
+          showTextDialogue(textSticker.getText().toString(), textSticker);
         }
         Log.d(TAG, "onStickerClicked");
       }
@@ -194,7 +201,7 @@ public class MainActivity extends AppCompatActivity
     Drawable bubble = ContextCompat.getDrawable(this, R.drawable.bubble);
     stickerView.addSticker(new TextSticker(getApplicationContext()).setDrawable(bubble)
         .setText("Sticker\n")
-        .setMaxTextSize(14)
+        .setMaxTextSize(18)
         .resizeText(), Sticker.Position.TOP);
   }
 
@@ -243,11 +250,11 @@ public class MainActivity extends AppCompatActivity
 
   public void testAdd(View view) {
     final TextSticker sticker = new TextSticker(this);
-    sticker.setText("Hello, world!");
+    sticker.setText("Values are present inside the material");
     sticker.setTextColor(Color.BLUE);
     sticker.setTextAlign(Layout.Alignment.ALIGN_CENTER);
     sticker.resizeText();
-
+    sticker.setMaxTextSize(20);
     stickerView.addSticker(sticker);
   }
 
@@ -294,5 +301,50 @@ public class MainActivity extends AppCompatActivity
     DisplayMetrics metrics = resources.getDisplayMetrics();
     float px = dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     return px;
+  }
+
+  public void showTextDialogue(String input, final TextSticker textSticker) {
+    final AlertDialog builder = new AlertDialog.Builder(this).create();
+    View inflate = View.inflate(this, R.layout.dialog_edit_text_annotation, null);
+    builder.setView(inflate);
+    final int[] selectedColor = { Color.BLACK };
+    ColorListAdapter.IColorListAction iColorListAction = new ColorListAdapter.IColorListAction() {
+      @Override public void onColorSelected(int position, int color) {
+        selectedColor[0] = color;
+      }
+
+      @Override public void onMoreSelected(int position) {
+
+      }
+    };
+    final EditText editText = (EditText) inflate.findViewById(R.id.input);
+    RecyclerView recyclerView = (RecyclerView) inflate.findViewById(R.id.rv_color_list);
+    LinearLayoutManager stickerListLayoutManager = new LinearLayoutManager(this);
+    stickerListLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+    recyclerView.setLayoutManager(stickerListLayoutManager);
+    ColorListAdapter mColorAdapter = new ColorListAdapter(this, mPaintColors, iColorListAction);
+    recyclerView.setAdapter(mColorAdapter);
+    editText.setText(input);
+    inflate.findViewById(R.id.btn_photo_annotation_submit)
+        .setOnClickListener(new View.OnClickListener() {
+          @Override public void onClick(View view) {
+            String inputValue = editText.getText().toString();
+            textSticker.setText(inputValue);
+            textSticker.setTextColor(selectedColor[0]);
+            textSticker.setTextAlign(Layout.Alignment.ALIGN_CENTER);
+            textSticker.resizeText();
+            textSticker.setMaxTextSize(18);
+            stickerView.replace(textSticker);
+            stickerView.invalidate();
+            builder.dismiss();
+          }
+        });
+    inflate.findViewById(R.id.btn_photo_annotation_cancel)
+        .setOnClickListener(new View.OnClickListener() {
+          @Override public void onClick(View view) {
+            builder.dismiss();
+          }
+        });
+    builder.show();
   }
 }
