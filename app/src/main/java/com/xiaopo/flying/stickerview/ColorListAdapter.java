@@ -13,8 +13,6 @@ import android.view.ViewGroup;
  */
 public class ColorListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-  public static final int TYPE_COLOR = 1;
-  public static final int TYPE_MORE = 2;
   private final Context mContext;
 
   public interface IColorListAction {
@@ -43,46 +41,22 @@ public class ColorListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
   }
 
-  public class MoreViewHolder extends RecyclerView.ViewHolder {
-    View moreBtn;
-
-    public MoreViewHolder(View itemView) {
-      super(itemView);
-      this.moreBtn = itemView.findViewById(R.id.color_panel_more);
-    }
-  }//end inner class
-
   @Override public int getItemCount() {
-    return colorsData.length + 1;
+    return colorsData.length;
   }
 
   @Override public int getItemViewType(int position) {
-    return colorsData.length == position ? TYPE_MORE : TYPE_COLOR;
+    return 0;
   }
 
   @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View v = null;
-    RecyclerView.ViewHolder viewHolder = null;
-    if (viewType == TYPE_COLOR) {
-      v = LayoutInflater.from(parent.getContext())
-          .inflate(R.layout.view_color_panel, parent, false);
-      viewHolder = new ColorViewHolder(v);
-    } else if (viewType == TYPE_MORE) {
-      v = LayoutInflater.from(parent.getContext())
-          .inflate(R.layout.view_color_more_panel, parent, false);
-      viewHolder = new MoreViewHolder(v);
-    }
 
-    return viewHolder;
+    return new ColorViewHolder(
+        LayoutInflater.from(parent.getContext()).inflate(R.layout.view_color_panel, parent, false));
   }
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-    int type = getItemViewType(position);
-    if (type == TYPE_COLOR) {
-      onBindColorViewHolder((ColorViewHolder) holder, position);
-    } else if (type == TYPE_MORE) {
-      onBindColorMoreViewHolder((MoreViewHolder) holder, position);
-    }
+    onBindColorViewHolder((ColorViewHolder) holder, position);
   }
 
   private void onBindColorViewHolder(final ColorViewHolder holder, final int position) {
@@ -91,16 +65,6 @@ public class ColorListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
       @Override public void onClick(View view) {
         if (mCallback != null) {
           mCallback.onColorSelected(position, colorsData[position]);
-        }
-      }
-    });
-  }
-
-  private void onBindColorMoreViewHolder(final MoreViewHolder holder, final int position) {
-    holder.moreBtn.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View view) {
-        if (mCallback != null) {
-          mCallback.onMoreSelected(position);
         }
       }
     });

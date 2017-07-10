@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity
       ActivityCompat.requestPermissions(this,
           new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE }, PERM_RQST_CODE);
     } else {
-      loadSticker();
+      //loadSticker();
     }
   }
 
@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity
       @NonNull int[] grantResults) {
     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     if (requestCode == PERM_RQST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-      loadSticker();
+      //loadSticker();
     }
   }
 
@@ -243,11 +243,6 @@ public class MainActivity extends AppCompatActivity
 
   public void testRemoveAll(View view) {
     stickerView.removeAllStickers();
-  }
-
-  public void reset(View view) {
-    stickerView.removeAllStickers();
-    loadSticker();
   }
 
   public void testAdd(View view) {
@@ -310,10 +305,16 @@ public class MainActivity extends AppCompatActivity
     final AlertDialog builder = new AlertDialog.Builder(this).create();
     View inflate = View.inflate(this, R.layout.dialog_edit_text_annotation, null);
     builder.setView(inflate);
-    final int[] selectedColor = { Color.BLACK };
+    RecyclerView recyclerView = (RecyclerView) inflate.findViewById(R.id.rv_color_list);
+    final PaintModeView paintModeView =
+        (PaintModeView) inflate.findViewById(R.id.pmv_edit_image_paint);
+    LinearLayoutManager stickerListLayoutManager = new LinearLayoutManager(this);
+    stickerListLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+    recyclerView.setLayoutManager(stickerListLayoutManager);
+    paintModeView.setPaintStrokeColor(Color.BLACK);
     ColorListAdapter.IColorListAction iColorListAction = new ColorListAdapter.IColorListAction() {
       @Override public void onColorSelected(int position, int color) {
-        selectedColor[0] = color;
+        paintModeView.setPaintStrokeColor(Color.BLACK);
       }
 
       @Override public void onMoreSelected(int position) {
@@ -321,10 +322,7 @@ public class MainActivity extends AppCompatActivity
       }
     };
     final EditText editText = (EditText) inflate.findViewById(R.id.input);
-    RecyclerView recyclerView = (RecyclerView) inflate.findViewById(R.id.rv_color_list);
-    LinearLayoutManager stickerListLayoutManager = new LinearLayoutManager(this);
-    stickerListLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-    recyclerView.setLayoutManager(stickerListLayoutManager);
+
     ColorListAdapter mColorAdapter = new ColorListAdapter(this, mPaintColors, iColorListAction);
     recyclerView.setAdapter(mColorAdapter);
     editText.setText(input);
@@ -333,7 +331,7 @@ public class MainActivity extends AppCompatActivity
           @Override public void onClick(View view) {
             String inputValue = editText.getText().toString();
             textSticker.setText(inputValue);
-            textSticker.setTextColor(selectedColor[0]);
+            textSticker.setTextColor(paintModeView.getStokenColor());
             textSticker.setTextAlign(Layout.Alignment.ALIGN_CENTER);
             textSticker.resizeText();
             textSticker.setMaxTextSize(18);

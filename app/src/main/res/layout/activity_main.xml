@@ -32,6 +32,12 @@
         app:showBorder="true"
         app:showIcons="true"
         >
+      <ImageView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:adjustViewBounds="true"
+          android:src="@drawable/ic_screenshot"
+          />
 
       <com.rm.freedrawview.FreeDrawView
           android:id="@+id/free_draw_view"
@@ -95,8 +101,8 @@
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="3dp"
-            android:background="@android:color/holo_red_dark"
             android:layout_marginRight="3dp"
+            android:background="@android:color/black"
             />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_color_list"
