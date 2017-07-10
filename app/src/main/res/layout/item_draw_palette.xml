@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_editor"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="visible"
+    >
+
+
+  <RadioGroup
+      android:id="@+id/radio_selection"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      >
+
+    <RadioButton
+        android:id="@+id/radio_color"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/black"
+        android:button="@null"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:letterSpacing="0.02"
+        android:padding="10dp"
+        android:text="COLOR"
+        android:textColor="@android:color/white"
+        android:textStyle="normal"
+        />
+    <View
+        android:layout_width="1dp"
+        android:layout_height="30dp"
+        android:background="@android:color/white"
+        />
+
+
+    <RadioButton
+        android:id="@+id/radio_typo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/black"
+        android:button="@null"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:letterSpacing="0.02"
+        android:padding="10dp"
+        android:text="TEXT"
+        android:textColor="@android:color/white"
+        android:textStyle="normal"
+        />
+
+
+  </RadioGroup>
+
+</LinearLayout>

@@ -6,72 +6,167 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.xiaopo.flying.stickerview.MainActivity">
+    tools:context="com.xiaopo.flying.stickerview.MainActivity"
+    >
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/colorPrimary">
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="56dp"
+      android:background="@color/colorPrimary"
+      >
 
-    </android.support.v7.widget.Toolbar>
+  </android.support.v7.widget.Toolbar>
 
-
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      >
     <com.xiaopo.flying.sticker.StickerView
         android:id="@+id/sticker_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_weight="1"
         app:showBorder="true"
-        app:showIcons="true">
+        app:showIcons="true"
+        >
 
-        <com.rm.freedrawview.FreeDrawView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+      <com.rm.freedrawview.FreeDrawView
+          android:id="@+id/free_draw_view"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          />
     </com.xiaopo.flying.sticker.StickerView>
-
-    <HorizontalScrollView
+    <LinearLayout
+        android:id="@+id/layout_paint_option"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:background="@android:color/black"
-        android:scrollbars="none">
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible"
+        >
 
-        <LinearLayout
+
+      <LinearLayout
+          android:id="@+id/pointer_radiogroup"
+          android:layout_width="match_parent"
+          android:layout_height="40dp"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:orientation="horizontal"
+          android:padding="2dp"
+          >
+
+
+        <SeekBar
+            android:id="@+id/slider_thickness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+
+        <TextView
+            android:id="@+id/paint_stroke"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:onClick="testAdd"
-                android:text="Add" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:onClick="testLock"
-                android:text="SAVE" />
+            android:layout_marginRight="10dp"
+            android:textColor="@android:color/white"
+            />
 
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:onClick="testRemove"
-                android:text="Remove" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:onClick="testRemoveAll"
-                android:text="RemoveAll" />
+      </LinearLayout>
 
 
-        </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="40dp"
+          android:orientation="horizontal"
+          >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_color_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            />
+
+        <ImageView
+            android:id="@+id/img_undo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:button="@null"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:onClick="undoPaint"
+            android:padding="5dp"
+            android:src="@drawable/ic_undo"
+            android:tint="@android:color/white"
+            />
+      </LinearLayout>
+
+
+    </LinearLayout>
+    <HorizontalScrollView
+        android:id="@+id/view_text_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:color/black"
+        android:scrollbars="none"
+        android:visibility="gone"
+        >
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          >
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:onClick="testAdd"
+            android:text="Add"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:onClick="testLock"
+            android:text="Lock"
+            />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:onClick="testRemove"
+            android:text="Remove"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:onClick="testRemoveAll"
+            android:text="RemoveAll"
+            />
+      </LinearLayout>
     </HorizontalScrollView>
+  </FrameLayout>
+
+  <include layout="@layout/item_draw_palette"/>
 </LinearLayout>
