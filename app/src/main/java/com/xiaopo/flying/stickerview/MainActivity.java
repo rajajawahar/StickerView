@@ -67,10 +67,12 @@ public class MainActivity extends AppCompatActivity
   private static final int THICKNESS_MAX = 30;
   private static final int THICKNESS_MIN = 1;
   private SeekBar mThicknessBar;
+  private PaintModeView mPaintModeView;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    mPaintModeView = (PaintModeView) findViewById(R.id.pmv_edit_image_paint);
 
     mColorAdapter = new ColorListAdapter(this, mPaintColors, this);
     recyclerView = (RecyclerView) findViewById(R.id.rv_color_list);
@@ -277,6 +279,7 @@ public class MainActivity extends AppCompatActivity
 
   @Override public void onColorSelected(int position, int color) {
     freeDrawView.setPaintColor(color);
+    mPaintModeView.setBackgroundColor(color);
   }
 
   @Override public void onMoreSelected(int position) {

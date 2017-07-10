@@ -86,7 +86,18 @@
           android:layout_width="match_parent"
           android:layout_height="40dp"
           android:orientation="horizontal"
+          android:paddingLeft="10dp"
           >
+
+        <com.xiaopo.flying.stickerview.PaintModeView
+            android:id="@+id/pmv_edit_image_paint"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="3dp"
+            android:background="@android:color/holo_red_dark"
+            android:layout_marginRight="3dp"
+            />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_color_list"
             android:layout_width="0dp"
