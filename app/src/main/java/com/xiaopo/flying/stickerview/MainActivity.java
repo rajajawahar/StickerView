@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     SeekBar.OnSeekBarChangeListener {
   private static final String TAG = MainActivity.class.getSimpleName();
   public static final int PERM_RQST_CODE = 110;
+
   private StickerView stickerView;
   private TextSticker sticker;
   private RadioGroup radioGroup;
@@ -72,10 +73,12 @@ public class MainActivity extends AppCompatActivity
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
     mPaintModeView = (PaintModeView) findViewById(R.id.pmv_edit_image_paint);
 
-    mColorAdapter = new ColorListAdapter(this, mPaintColors, this);
     recyclerView = (RecyclerView) findViewById(R.id.rv_color_list);
+
+    mColorAdapter = new ColorListAdapter(this, mPaintColors, this);
     LinearLayoutManager stickerListLayoutManager = new LinearLayoutManager(this);
     stickerListLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
     recyclerView.setLayoutManager(stickerListLayoutManager);
@@ -87,9 +90,9 @@ public class MainActivity extends AppCompatActivity
     (radioGroup = (RadioGroup) findViewById(R.id.radio_selection)).setOnCheckedChangeListener(this);
     stickerView = (StickerView) findViewById(R.id.sticker_view);
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    recyclerView.setHasFixedSize(false);
     (mThicknessBar = (SeekBar) findViewById(R.id.slider_thickness)).setOnSeekBarChangeListener(
         this);
+    recyclerView.setHasFixedSize(false);
     mThicknessBar.setMax((THICKNESS_MAX - THICKNESS_MIN) / THICKNESS_STEP);
     mThicknessBar.setProgress((int) freeDrawView.getPaintWidth());
 
